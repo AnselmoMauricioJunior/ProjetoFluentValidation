@@ -9,7 +9,7 @@ namespace ApiProjetoFluentValidation.Core.Services
 {
     public class PlantaServices : IPlantaServices
     {
-        private IPlantaRepository _plantaRepository;
+        private readonly IPlantaRepository _plantaRepository;
 
         public PlantaServices(IPlantaRepository plantaRepository)
         {
