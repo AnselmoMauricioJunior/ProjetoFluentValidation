@@ -1,6 +1,8 @@
-﻿
+﻿using ApiProjetoFluentValidation.Core.Dtos;
+using ApiProjetoFluentValidation.Core.Interfaces.Dtos;
 using ApiProjetoFluentValidation.Core.Interfaces.Infra.Repository;
 using ApiProjetoFluentValidation.Core.Interfaces.Services;
+using ApiProjetoFluentValidation.Core.Interfaces.Validations;
 using ApiProjetoFluentValidation.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,44 +12,76 @@ namespace ApiProjetoFluentValidation.Core.Services
     public class PlantaServices : IPlantaServices
     {
         private readonly IPlantaRepository _plantaRepository;
+        private readonly IPlantaValidation _plantavalidation;
 
-        public PlantaServices(IPlantaRepository plantaRepository)
+        public PlantaServices(IPlantaRepository plantaRepository, IPlantaValidation plantavalidation)
         {
             _plantaRepository = plantaRepository;
+            _plantavalidation = plantavalidation;
         }
-        public async Task<Planta> AlterarAguaAsync(int id, int agua)
+        public async Task<IResultDto> AlterarAguaAsync(int id, int agua)
         {
-            //TODO Validações
+            var result = await _plantavalidation.AlterarAguaValidateAsync(new Planta("", 0, agua, 0));
+
+            if (!result.IsValid)
+                return ResultDto.Erro(new { id, agua }, result);
+
             await _plantaRepository.AlterarAguaAsync(id, agua);
-            return await _plantaRepository.ObterPorIdAsync(id);
+            var plantaResultado = await _plantaRepository.ObterPorIdAsync(id);
+
+            return ResultDto.Sucesso(plantaResultado);
         }
 
-        public async Task<Planta> AlterarLuzDiariaAsync(int id, int luzdiaria)
+        public async Task<IResultDto> AlterarLuzDiariaAsync(int id, int luzdiaria)
         {
-            //TODO Validações
+            var result = await _plantavalidation.AlterarLuzDiariaValidateAsync(new Planta("", luzdiaria, 0, 0));
+
+            if (!result.IsValid)
+                return ResultDto.Erro(new { id, luzdiaria }, result);
+
             await _plantaRepository.AlterarLuzDiariaAsync(id, luzdiaria);
-            return await _plantaRepository.ObterPorIdAsync(id);
+            var plantaResultado = await _plantaRepository.ObterPorIdAsync(id);
+
+            return ResultDto.Sucesso(plantaResultado);
         }
 
-        public async Task<Planta> AlterarNomeAsync(int id, string nome)
+        public async Task<IResultDto> AlterarNomeAsync(int id, string nome)
         {
-            //TODO Validações
+            var result = await _plantavalidation.AlterarNomeValidateAsync(new Planta(nome));
+
+            if (!result.IsValid)
+                return ResultDto.Erro(new { id, nome }, result);
+
             await _plantaRepository.AlterarNomeAsync(id, nome);
-            return await _plantaRepository.ObterPorIdAsync(id);
+            var plantaResultado = await _plantaRepository.ObterPorIdAsync(id);
+
+            return ResultDto.Sucesso(plantaResultado);
         }
 
-        public async Task<Planta> AlterarPesoAsync(int id, int peso)
+        public async Task<IResultDto> AlterarPesoAsync(int id, int peso)
         {
-            //TODO Validações
+            var result = await _plantavalidation.AlterarPesoValidateAsync(new Planta("", 0, 0, peso));
+
+            if (!result.IsValid)
+                return ResultDto.Erro(new { id, peso }, result);
+
             await _plantaRepository.AlterarPesoAsync(id, peso);
-            return await _plantaRepository.ObterPorIdAsync(id);
+            var plantaResultado = await _plantaRepository.ObterPorIdAsync(id);
+
+            return ResultDto.Sucesso(plantaResultado);
         }
 
-        public async Task<Planta> CriarAsync(Planta planta)
+        public async Task<IResultDto> CriarAsync(Planta planta)
         {
-            //TODO Validações
+            var result = await _plantavalidation.CriarValidateAsync(planta);
+
+            if (!result.IsValid)
+                return ResultDto.Erro(planta, result);
+
             int id = await _plantaRepository.CriarAsync(planta);
-            return await _plantaRepository.ObterPorIdAsync(id);
+            var plantaResultado = await _plantaRepository.ObterPorIdAsync(id);
+
+            return ResultDto.Sucesso(plantaResultado);
         }
 
         public async Task<IEnumerable<Planta>> ObterAsync()
@@ -60,9 +94,15 @@ namespace ApiProjetoFluentValidation.Core.Services
             return await _plantaRepository.ObterPorIdAsync(id);
         }
 
-        public async Task RemoverAsync(int id)
+        public async Task<IResultDto> RemoverAsync(int id)
         {
+            var result = await _plantavalidation.RemoverValidateAsync(new Planta(id));
+
+            if (!result.IsValid)
+                return ResultDto.Erro(new { id }, result);
             await _plantaRepository.RemoverAsync(id);
+
+            return ResultDto.Sucesso(new { id });
         }
     }
 }

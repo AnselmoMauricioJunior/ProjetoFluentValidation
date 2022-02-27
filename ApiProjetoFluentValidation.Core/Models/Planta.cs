@@ -16,5 +16,22 @@
             this.agua = agua;
             this.peso = peso;
         }
+
+        public Planta(string nome)
+        {
+            this.nome = nome;
+            luzdiaria = 0;
+            agua = 0;
+            peso = 0;
+        }
+
+        public Planta(int id)
+        {
+            ID = id;
+            nome = "";
+            luzdiaria = 0;
+            agua = 0;
+            peso = 0;
+        }
     }
 }

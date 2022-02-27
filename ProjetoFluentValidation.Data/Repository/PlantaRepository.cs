@@ -39,6 +39,17 @@ namespace ProjetoFluentValidation.Data.Repository
                     new { id });
             }
         }
+        public async Task<Planta> ObterPorNomeAsync(string nome)
+        {
+            using (var dbConnection = new SqlConnection(_dbConfig.BancoDados))
+            {
+
+                return await dbConnection.QueryFirstOrDefaultAsync<Planta>(@"SELECT ID,nome,luzdiaria,agua,peso
+                                                              FROM dbo.planta
+                                                              where nome = @nome",
+                    new { nome });
+            }
+        }
         public async Task<int> CriarAsync(Planta planta)
         {
             using (var dbConnection = new SqlConnection(_dbConfig.BancoDados))
@@ -113,7 +124,7 @@ namespace ProjetoFluentValidation.Data.Repository
                 await dbConnection.ExecuteAsync(
                     @"DELETE FROM dbo.planta 
                       WHERE ID = @id",
-                    new {  id });
+                    new { id });
             }
         }
     }

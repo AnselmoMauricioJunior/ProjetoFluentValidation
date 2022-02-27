@@ -8,6 +8,7 @@ namespace ApiProjetoFluentValidation.Core.Interfaces.Infra.Repository
     {
         Task<IEnumerable<Planta>> ObterAsync();
         Task<Planta> ObterPorIdAsync(int id);
+        Task<Planta> ObterPorNomeAsync(string nome);
         Task<int> CriarAsync(Planta planta);
         Task AlterarNomeAsync(int id,string nome);
         Task AlterarLuzDiariaAsync(int id, int luzdiaria);

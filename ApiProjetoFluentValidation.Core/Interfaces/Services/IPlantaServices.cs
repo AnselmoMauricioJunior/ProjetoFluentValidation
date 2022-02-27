@@ -1,4 +1,5 @@
-﻿using ApiProjetoFluentValidation.Core.Models;
+﻿using ApiProjetoFluentValidation.Core.Interfaces.Dtos;
+using ApiProjetoFluentValidation.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,11 +9,11 @@ namespace ApiProjetoFluentValidation.Core.Interfaces.Services
     {
         Task<IEnumerable<Planta>> ObterAsync();
         Task<Planta> ObterPorIdAsync(int id);
-        Task<Planta> CriarAsync(Planta planta);
-        Task<Planta> AlterarNomeAsync(int id, string nome);
-        Task<Planta> AlterarLuzDiariaAsync(int id, int luzdiaria);
-        Task<Planta> AlterarAguaAsync(int id, int agua);
-        Task<Planta> AlterarPesoAsync(int id, int peso);
-        Task RemoverAsync(int id);
+        Task<IResultDto> CriarAsync(Planta planta);
+        Task<IResultDto> AlterarNomeAsync(int id, string nome);
+        Task<IResultDto> AlterarLuzDiariaAsync(int id, int luzdiaria);
+        Task<IResultDto> AlterarAguaAsync(int id, int agua);
+        Task<IResultDto> AlterarPesoAsync(int id, int peso);
+        Task<IResultDto> RemoverAsync(int id);
     }
 }

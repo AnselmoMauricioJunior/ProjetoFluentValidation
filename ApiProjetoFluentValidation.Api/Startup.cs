@@ -1,6 +1,8 @@
 using ApiProjetoFluentValidation.Core.Interfaces.Infra.Repository;
 using ApiProjetoFluentValidation.Core.Interfaces.Services;
+using ApiProjetoFluentValidation.Core.Interfaces.Validations;
 using ApiProjetoFluentValidation.Core.Services;
+using ApiProjetoFluentValidation.Core.Validations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -99,8 +101,13 @@ namespace ProjetoFluentValidation.Api
             #endregion
 
             #region [Services]           
-            services.AddSingleton<IPlantaServices, PlantaServices>();
+            services.AddTransient<IPlantaServices, PlantaServices>();
             #endregion
+
+            #region [Validators]
+            services.AddTransient<IPlantaValidation, PlantaValidation>();
+            #endregion
+
         }
     }
 }

@@ -38,7 +38,7 @@ namespace ProjetoFluentValidation.Api.Controllers
             [FromBody] CriarPlantaVM vm)
             => Ok(await services.CriarAsync(vm.ToModel()));
 
-        [HttpPut("{id:int}/{nome}")]
+        [HttpPut("nome/{id:int}/{nome}")]
         [SwaggerOperation(Summary = "Alterar nome")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AlterarNomeAsync(
@@ -47,7 +47,7 @@ namespace ProjetoFluentValidation.Api.Controllers
            [FromRoute] string nome)
             => Ok(await services.AlterarNomeAsync(id, nome));
 
-        [HttpPut("{id:int}/{luzdiaria:int}")]
+        [HttpPut("luzdiaria/{id:int}/{luzdiaria:int}")]
         [SwaggerOperation(Summary = "Alterar luz diária")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AlterarLuzDiariaAsync(
@@ -56,7 +56,7 @@ namespace ProjetoFluentValidation.Api.Controllers
           [FromRoute] int luzdiaria)
            => Ok(await services.AlterarLuzDiariaAsync(id, luzdiaria));
 
-        [HttpPut("{id:int}/{agua:int}")]
+        [HttpPut("agua/{id:int}/{agua:int}")]
         [SwaggerOperation(Summary = "Alterar litros de água por dia")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AlterarAguaAsync(
@@ -65,7 +65,7 @@ namespace ProjetoFluentValidation.Api.Controllers
           [FromRoute] int agua)
            => Ok(await services.AlterarAguaAsync(id, agua));
 
-        [HttpPut("{id:int}/{peso:int}")]
+        [HttpPut("peso/{id:int}/{peso:int}")]
         [SwaggerOperation(Summary = "Alterar peso")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AlterarPesoAsync(
@@ -81,8 +81,7 @@ namespace ProjetoFluentValidation.Api.Controllers
           [FromServices] IPlantaServices services,
           [FromRoute] int id)
         {
-            await services.RemoverAsync(id);
-            return Ok();
+            return Ok(await services.RemoverAsync(id));
         }
     }
 }
