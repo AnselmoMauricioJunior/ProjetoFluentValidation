@@ -22,7 +22,6 @@ namespace ApiProjetoFluentValidation.Core.Interfaces.Validations
             pv.ValidarAgua();
             pv.ValidarLuzDiaria();
             pv.ValidarPeso();
-            pv.ValidarId();
             return await pv.ValidateAsync(planta);
         }
 
