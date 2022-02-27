@@ -1,7 +1,8 @@
 # ProjetoFluentValidation
 <u>
 <li> Repository-Service Pattern - Ok<br /></li>
-<li> FluentValidation - Em contrução<br /></li>
+<li> Injeção de dependência - Ok<br /></li>
+<li> FluentValidation - Ok<br /></li>
 <li> Teste de unidade com Mock - Em contrução<br /></li>
 <li> SqlServer - Ok<br /></li>
 <li> Swagger - Ok<br /></li>
