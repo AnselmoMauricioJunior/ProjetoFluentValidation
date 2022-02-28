@@ -99,10 +99,10 @@ namespace ApiProjetoFluentValidation.Core.Services
             var result = await _plantavalidation.RemoverValidateAsync(new Planta(id));
 
             if (!result.IsValid)
-                return ResultDto.Erro(new { id }, result);
+                return ResultDto.Erro(id, result);
             await _plantaRepository.RemoverAsync(id);
 
-            return ResultDto.Sucesso(new { id });
+            return ResultDto.Sucesso(id);
         }
     }
 }

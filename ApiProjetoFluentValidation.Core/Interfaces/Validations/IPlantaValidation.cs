@@ -7,52 +7,14 @@ namespace ApiProjetoFluentValidation.Core.Interfaces.Validations
 {
     public abstract class IPlantaValidation : AbstractValidator<Planta>
     {
-        public abstract void ValidarId();
-        public abstract void ValidarNome();
-        public abstract void ValidarLuzDiaria();
-        public abstract void ValidarAgua();
-        public abstract void ValidarPeso();
+
+        public abstract Task<ValidationResult> CriarValidateAsync(Planta planta);
+        public abstract Task<ValidationResult> AlterarPesoValidateAsync(Planta planta);
+        public abstract Task<ValidationResult> AlterarAguaValidateAsync(Planta planta);
+        public abstract Task<ValidationResult> AlterarLuzDiariaValidateAsync(Planta planta);
+        public abstract Task<ValidationResult> AlterarNomeValidateAsync(Planta planta);
+        public abstract Task<ValidationResult> RemoverValidateAsync(Planta planta);
+
     }
 
-    public static class IPlantaValidationUtils
-    {
-        public static async Task<ValidationResult> CriarValidateAsync(this IPlantaValidation pv, Planta planta)
-        {
-            pv.ValidarNome();
-            pv.ValidarAgua();
-            pv.ValidarLuzDiaria();
-            pv.ValidarPeso();
-            return await pv.ValidateAsync(planta);
-        }
-
-        public static async Task<ValidationResult> AlterarPesoValidateAsync(this IPlantaValidation pv, Planta planta)
-        {
-            pv.ValidarPeso();
-            return await pv.ValidateAsync(planta);
-        }
-
-        public static async Task<ValidationResult> AlterarAguaValidateAsync(this IPlantaValidation pv, Planta planta)
-        {
-            pv.ValidarAgua();
-            return await pv.ValidateAsync(planta);
-        }
-
-        public static async Task<ValidationResult> AlterarLuzDiariaValidateAsync(this IPlantaValidation pv, Planta planta)
-        {
-            pv.ValidarLuzDiaria();
-            return await pv.ValidateAsync(planta);
-        }
-
-        public static async Task<ValidationResult> AlterarNomeValidateAsync(this IPlantaValidation pv, Planta planta)
-        {
-            pv.ValidarNome();
-            return await pv.ValidateAsync(planta);
-        }
-
-        public static async Task<ValidationResult> RemoverValidateAsync(this IPlantaValidation pv, Planta planta)
-        {
-            pv.ValidarId();
-            return await pv.ValidateAsync(planta);
-        }
-    }
 }
